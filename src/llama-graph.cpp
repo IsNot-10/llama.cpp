@@ -2325,6 +2325,11 @@ ggml_tensor * llm_graph_context::build_moe_ffn(
             // the reference computes the router in F32: https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/inference/model.py#L565
             ggml_prec_set_acc(logits, GGML_PREC_F32);
         }
+        if (hparams.router_soft_cap) {
+            const float cap = hparams.f_router_logit_softcapping;
+            logits = ggml_tanh(ctx0, ggml_scale(ctx0, logits, 1.0f/cap));
+            logits = ggml_scale(ctx0, logits, cap);
+        }
         cb(logits, "ffn_moe_logits", il);
     } else {
         logits = probs_in;

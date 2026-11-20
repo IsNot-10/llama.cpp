@@ -284,6 +284,7 @@ struct llama_hparams {
     bool causal_attn   = true;
     bool use_alibi     = false;
     bool attn_soft_cap = false;
+    bool router_soft_cap = false;
     bool use_kq_norm   = false;
 
     // for Classifiers

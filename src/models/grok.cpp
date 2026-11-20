@@ -8,6 +8,7 @@ void llama_model_grok::load_arch_hparams(llama_model_loader & ml) {
     hparams.f_attn_out_scale = 0.08838834764831845f;
     hparams.f_attn_logit_softcapping = 30.0f;
     hparams.f_router_logit_softcapping = 30.0f;
+    hparams.router_soft_cap = true;
     // no final_logit_softcapping in grok-1
     hparams.f_final_logit_softcapping = 0.0f;
 
